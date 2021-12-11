@@ -20,3 +20,10 @@ npm i --save-dev @types/express
 
 ## Instalando HTTP status code
 npm i --save http-status-codes
+
+## Biblioteca Node-postgress e os types
+npm i --save pg
+npm i --save-dev @types/pg
+
+## Biblioteca dotenv
+npm i dotenv
