@@ -1,5 +1,6 @@
 import express, { Request, Response, NextFunction } from 'express';
 import errorHandler from './middleware/error-handler.middleware';
+import authorizationRoute from './routes/authorization.route';
 import statusRoute from './routes/status.route';
 import usersRoute from './routes/users.route';
 
@@ -13,6 +14,7 @@ app.use(express.urlencoded({ extended: true }));
 // config das rotas
 app.use(statusRoute);
 app.use(usersRoute);
+app.use(authorizationRoute);
 
 // Config dos handlers de error
 app.use(errorHandler);
