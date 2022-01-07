@@ -27,3 +27,7 @@ npm i --save-dev @types/pg
 
 ## Biblioteca dotenv
 npm i dotenv
+
+## Instalando JWT e os types
+npm i --save jsonwebtoken 
+npm i --save-dev @types/jsonwebtoken
