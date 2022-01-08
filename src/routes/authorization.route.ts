@@ -1,6 +1,8 @@
 import { Router, Request, Response, NextFunction } from "express";
 import ForbiddenError from "../models/errors/forbidden.error.model";
 import userRepository from "../repositories/user.repositories";
+import JWT from 'jsonwebtoken';
+import { StatusCodes } from "http-status-codes";
 
 const authorizationRoute = Router();
 
@@ -26,7 +28,13 @@ authorizationRoute.post('/token', async (req: Request, res: Response, next: Next
         }
     
         const user = await userRepository.findByUsernameAndPassword(username, password)
-        
+
+        if (!user) {
+            throw new ForbiddenError('Usuario ou senha invalidos')
+        }
+
+        const jwt = JWT.sign({ username: user.username }, 'my_secret_key', { subject: user?.uuid })
+        res.status(StatusCodes.OK).json({ token: jwt })
     } catch (error) {
         next(error)
     }
