@@ -1,9 +1,10 @@
 import { Router, Request, Response, NextFunction } from "express";
 import ForbiddenError from "../models/errors/forbidden.error.model";
+import userRepository from "../repositories/user.repositories";
 
 const authorizationRoute = Router();
 
-authorizationRoute.post('/token', (req: Request, res: Response, next: NextFunction) => {
+authorizationRoute.post('/token', async (req: Request, res: Response, next: NextFunction) => {
     try {
         const authorizationHeader = req.headers['authorization'] 
 
@@ -23,6 +24,8 @@ authorizationRoute.post('/token', (req: Request, res: Response, next: NextFuncti
         if (!username || !password) {
             throw new ForbiddenError('Credenciais não informadas')
         }
+    
+        const user = await userRepository.findByUsernameAndPassword(username, password)
         
     } catch (error) {
         next(error)
