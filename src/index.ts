@@ -1,5 +1,5 @@
 import express, { Request, Response, NextFunction } from 'express';
-import bearerAuthenticantionMiddleware from './middleware/bearer-authentication.middleware';
+import jwtAuthenticantionMiddleware from './middleware/jwt-authentication.middleware';
 import errorHandler from './middleware/error-handler.middleware';
 import authorizationRoute from './routes/authorization.route';
 import statusRoute from './routes/status.route';
@@ -14,8 +14,9 @@ app.use(express.urlencoded({ extended: true }));
 
 // config das rotas
 app.use(statusRoute);
-app.use(bearerAuthenticantionMiddleware, usersRoute);
 app.use(authorizationRoute);
+
+app.use(jwtAuthenticantionMiddleware, usersRoute);
 
 // Config dos handlers de error
 app.use(errorHandler);
